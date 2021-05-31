@@ -1,0 +1,28 @@
+﻿@model TRueBalance.Models.ProductViewModels.ProductViewModel
+
+<div class="jumbotron">
+    <h1 class="display-3">Agregar Producto</h1>
+    <form asp-action="Add" method="post">
+        <div class="form-group">
+            <input asp-for="ProductID" style="display:none" />
+
+            <label asp-for="Code" class="col-md-2 control-label"></label>
+            <input asp-for="Code" class="form-control" readonly value="@Model.Code" />
+            <span asp-validation-for="Code" class="text-danger"></span>
+
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <input asp-for="Name" class="form-control" value="@Model.Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+            <label asp-for="Price" class="col-md-2 control-label"></label>
+            <input asp-for="Price" class="form-control" value="@Model.Price" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+
+            <label asp-for="DueDate" class="col-md-2 control-label"></label>
+            <input asp-for="DueDate" class="form-control" value="@Model.DueDate" />
+            <span asp-validation-for="DueDate" class="text-danger"></span>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,70 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Iniciar sesion";
+    Layout = "_LayoutLogin";
+
+}
+
+<div class="text-xs-center m-t-20">
+    <a href="index.html" class="logo">
+        <i class="zmdi zmdi-group-work icon-c-logo"></i>
+        <span>TRueBalance</span>
+    </a>
+</div>
+<div class="m-t-30 m-b-20">
+    <div class="col-xs-12 text-xs-center">
+        <h6 class="text-muted text-uppercase m-b-0 m-t-0">Iniciar sesion</h6>
+    </div>
+
+    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData[" ReturnUrl"]" method="post" class="form-horizontal m-t-20">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group ">
+            <div class="col-xs-12">
+                <input asp-for="Email" class="form-control" placeholder="usuario@compa&#241ia.com">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-12">
+                <input asp-for="Password" class="form-control" placeholder="Contrase&#241a">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group text-center m-t-30">
+            <div style="margin: 0 auto; width: 304px;" class="g-recaptcha" data-sitekey="@Environment.GetEnvironmentVariable("GOOGLE_KEY")"></div>
+        </div>
+        
+        <div class="form-group text-center m-t-30">
+            <div class="col-xs-12">
+                <button class="btn btn-success btn-block waves-effect waves-light" type="submit">Iniciar sesion</button>
+            </div>
+        </div>
+
+
+        <div class="form-group m-t-30 m-b-0">
+            <div class="col-sm-12">
+                <a asp-action="ForgotPassword" class="text-muted"><i class="fa fa-lock m-r-5"></i> Olvido su contraseña?</a>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+<script>
+    var resizefunc = [];
+</script>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+}

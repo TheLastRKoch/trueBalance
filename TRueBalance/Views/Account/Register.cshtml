@@ -1,0 +1,116 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="row">
+    <div class="col-xl-6 col-xs-12">
+        <div class="card-box">
+            <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                <h4 class="text-center">Create a new account.</h4>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <hr />
+
+                <div class="form-group">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BirthDate"></label>
+                    <input asp-for="BirthDate" class="form-control" />
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="sel1">Seleccione el rol</label>
+                    <select asp-for="SelectedRole" class="form-control" id="sel1">
+                        @foreach (var Role in Model.RoleList)
+                        {
+                            <option value="@Role">@Role</option>
+                        }
+                    </select>
+                </div>
+                <button id="btnCreate"
+                        type="submit"
+                        class="btn btn-block btn-lg btn-primary waves-effect waves-light">
+                    Crear usuario
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-xl-6  col-xs-12">
+        <div class="card-box">
+            <h4 class="text-center">Detalles</h4>
+            <hr />
+            <br />
+            <p>
+                Llene los siguientes datos para agregar un usuario al sistema, brevemente se explicara los permisos de cada tipo de usuario
+            </p>
+        </div>
+
+        <div class="card-box">
+            <h4 class="text-center">Rol Administrador</h4>
+            <hr />
+            <br />
+            <ul>
+                <li>Puede activar/desactivar usuarios</li>
+                <li>Puede abrir/cerrar la caja</li>
+                <li>Puede activar desactivar facturas</li>
+                <li>Tiene acceso completo a las configuraciones del sistema</li>
+            </ul>
+        </div>
+
+        <div class="card-box">
+            <h4 class="text-center">Rol Cajero</h4>
+            <hr />
+            <br />
+            <ul>
+                <li>Puede realizar ventas</li>
+                <li>Puede imprimir facturas</li>
+                <li>Tiene acceso limitado sistema</li>
+            </ul>
+        </div>
+
+        <div class="card-box">
+            <h4 class="text-center">Rol Developer</h4>
+            <hr />
+            <br />
+            <ul>
+                <li>Tiene acceso a todas las configuraciones del sistema.</li>
+                <li>Puede modificar el token API de Quicktory.</li>
+                <li>Puede activar/desactivar el uso de sistema.</li>
+            </ul>
+        </div>
+    </div>
+</div><!--Register form-->
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

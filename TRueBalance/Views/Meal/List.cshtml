@@ -1,0 +1,44 @@
+﻿@model TRueBalance.Models.MealViewModels.MealListViewModel
+
+@section Scripts{
+    <script type="text/javascript" src="~/assets/Admin/js/Meals/List.js" asp-file-version="true"></script>
+}
+
+<div class="col-sm-12">
+    <div class="btn-group pull-right m-t-15">
+        <a href="@Url.Action("Add", "Meal")" role="button" class="btn btn-custom waves-effect waves-light" aria-expanded="false">Agregar Platillos<span class="m-l-5"><i class="zmdi zmdi-collection-plus"></i></span></a>
+    </div>
+    <h4 class="page-title">Lista de platillos</h4>
+</div>
+
+<div class="col-lg-12">
+    <div class="card-box">
+        @if (Model.Meals.Count() > 0)
+        {
+            <table id="TbMeals" class="table">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var meal in Model.Meals)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(meal.Name, "Update", "Meal", new { id = meal.MealID }, null)</td>
+                            @*<td>@meal.Category.Name</td>*@
+                            <td>@meal.Price</td>
+                            <td><a class="btn btn-default" href=@Url.Action("Delete", "Meal", new { id = meal.MealID }, null) role="button">X</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h6>No se encontraron elementos</h6>
+        }
+    </div>
+</div>

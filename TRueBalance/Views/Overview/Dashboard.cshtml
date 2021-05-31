@@ -1,0 +1,67 @@
+﻿@model TRueBalance.Models.OverviewViewModels.DashboardViewModel
+
+@section Scripts{
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="~/assets/Admin/js/Overview/Summary.js" asp-file-version="true"></script>
+    <script type="text/javascript" src="~/assets/Admin/js/Overview/ChartManagement.js" asp-file-version="true"></script>
+}
+
+@if (Model.NumberOfOrders > 3)
+{
+
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+            <div class="card-box tilebox-one">
+                <i class="icon-layers pull-xs-right text-muted"></i>
+                <h6 class="text-muted text-uppercase m-b-20">Ordenes activas</h6>
+                <h2 class="m-b-20" data-plugin="counterup">@Model.ActiveOrders</h2>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+            <div class="card-box tilebox-one">
+                <i class="icon-chart pull-xs-right text-muted"></i>
+                <h6 class="text-muted text-uppercase m-b-20">Producto mas vendido</h6>
+                <h5 style="padding-bottom:12px" class="m-b-20">@Model.BestSeller</h5>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+            <div class="card-box tilebox-one">
+                <i class="icon-rocket pull-xs-right text-muted"></i>
+                <h6 class="text-muted text-uppercase m-b-20">Promedio de orden</h6>
+                <h2 class="m-b-20">@Model.OrderAVG</h2>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+            <div class="card-box tilebox-one">
+                <i class="icon-paypal pull-xs-right text-muted"></i>
+                <h6 class="text-muted text-uppercase m-b-20">Numero de clientes</h6>
+                <h2 class="m-b-20"><span data-plugin="counterup">@Model.ClientNumber</span></h2>
+            </div>
+        </div>
+    </div><!--Statistic Boxes-->
+
+    <div class="row">
+
+        <div class="col-xs-12 col-lg-12 col-xl-8">
+            <div style="padding:25px" class="card-box">
+                <canvas id="ChartStasticsSells"></canvas>
+            </div>
+        </div><!--Chart Statics Sells-->
+
+        <div class="col-xs-12 col-lg-12 col-xl-4">
+            <div style="padding-left:25px; padding-right:25px; padding-top:25px; padding-bottom:37px" class="card-box">
+                <canvas id="ChartTypeOfSells"></canvas>
+            </div>
+        </div><!--Chart Type of Sells-->
+
+    </div><!-- Chats -->
+}
+else
+{
+    @using TRueBalance.Views.Shared
+    @Html.Partial("../Shared/_PartialNoElements.cshtml",
+    new _NoElementsPartial { Message = "No existen suficientes ordenes como para mostrar estadísticas" })
+}

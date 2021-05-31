@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Configuracion";
+}
+@section Scripts{
+    <script src="assets/Admin/js/Utils/SwitchManagment.js"></script>
+    <script src="assets/Admin/js/Utils/CookieManagment.js"></script>
+    <script src="assets/Admin/js/UserSetting/UserSettings.js"></script>
+}
+
+<div class="col-md-12">
+    <h4 class="m-t-20 m-b-20">Sistema</h4>
+
+    <div class="card-deck-wrapper">
+        <div class="card-card-deck">
+            <div class="row">
+                <div class="col-xl-3 col-xs-12">
+                    <div class="card card-block">
+                        <label>Cierre de caja</label>
+                        <div id="CashBoxClosing" class="pull-right">
+                            <input id="CashBoxClosingFeature" type="checkbox" checked="" data-plugin="switchery" data-color="#039cfd"
+                                   data-switchery="true" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

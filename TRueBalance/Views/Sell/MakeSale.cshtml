@@ -1,0 +1,197 @@
+﻿@model TRueBalance.Models.SellViewModels.SellViewModel
+@section Scripts{
+    <script type="text/javascript" src="~/assets/Admin/js/Sell/SellProduct.js" asp-file-version="true"></script>
+    <link href="~/assets/Admin/css/TopAndBotButtons.css" rel="stylesheet" asp-file-version="true" />
+    <script type="text/javascript" src="~/assets/Admin/js/Utils/TopAndBotButton.js" asp-file-version="true"></script>
+    <script type="text/javascript" src="~/assets/Admin/js/Utils/FullScreen.js" asp-file-version="true"></script>
+}
+
+<div class="row">
+    <div class="col-xl-4 col-xs-12">
+        <h2 class="page-title">Realizar Venta</h2>
+    </div>
+    <div class="col-xl-8 col-xs-12 pull-right">
+        <div class="row pull-right">
+            <div class="m-t-15 col-xl-4">
+                <a id="btnOpenOrder" role="button" class="btn btn-custom waves-effect waves-light"
+                   aria-expanded="false">
+                    Ordenes <span class="m-l-5"><i class="zmdi zmdi-layers"></i></span>
+                </a>
+            </div>
+            <div class="m-t-15 col-xl-2">
+                <a id="btnFullScreen" role="button" class="btn btn-custom waves-effect waves-light" aria-expanded="false"><i class="zmdi zmdi-fullscreen"></i></a>
+            </div>
+        </div>
+    </div>
+</div><!--Title & buttoms-->
+
+<div class="row">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
+        <div style="padding:30px" class="card-box">
+            <h3 class="m-b-20">Digite el nombre del cliente</h3>
+            <input asp-for="ClientName" id="txtClientName" style="width:100%; max-width:100%;" class="form-control input-lg" value="@Model.ClientName" placeholder="Digite el nombre del cliente" aria-describedby="sizing-addon1" />
+            <div style="padding-bottom:20px">
+                <span asp-validation-for="ClientName" class="text-danger"></span>
+            </div>
+        </div>
+    </div><!--Name of client-->
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6 text-center">
+        <div class="card card-inverse card-success text-xs-center">
+            <div style="padding:44px" class="card-block card-primary">
+                <blockquote class="card-blockquote">
+                    <h2>Monto a pagar</h2>
+                </blockquote>
+                <blockquote class="card-blockquote">
+                    <h3 id="Amount">₡0</h3>
+                </blockquote>
+            </div>
+        </div>
+    </div><!--Total to pay-->
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-md-6">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-title col-xl-9">
+                    <div class="row">
+                        <div class="col-xl-2">
+                            <h3>Buscar</h3>
+                        </div>
+                        <div class="col-xs-12 col-xl-8">
+                            <input id="txtProductSearch" class="form-control input-lg" value="" placeholder="Producto..." type="search" name="txtProductSearch" />
+                        </div>
+                        <div class="col-xl-1">
+                            <button id="btnClear" type="button" style="display:none" class="btn btn-secondary btn-rounded waves-effect">X</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divSellTable" style="height: 400px" class="card-box table-responsive">
+                    <table id="datatable-buttons" class="table table-striped" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var meal in Model.ListMeals)
+                                {
+                                    <tr>
+                                        <td>
+                                            <label class="form-check-label">
+                                                <input id="@meal.MealID" text="@meal.Name" value="@meal.Price" type="checkbox" alt="1" class="form-check-input">
+                                            </label>
+                                        </td>
+                                        <td>@meal.Name</td>
+                                        <td>@meal.Price</td>
+                                        <td>
+                                            @{
+                                                string id = "Quantity" + @meal.MealID;
+                                            }
+                                            <input id="@id" disabled="disabled" class="form-group txtQuatity" type="number" value="1" name="quantity" min="1" max="500">
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div><!--Meal table-->
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6 text-center">
+        <div id="divAmountTable" class="card-box">
+            <table id="AmountTable" class="table">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Cantidad</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div><!--Table of sales-->
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6 text-xs-center">
+        <div class="card-box">
+            <h3 class="text-center">Datos de pago</h3>
+            <br>
+            <div class="row">
+                <div class="text-xs-left col-xs-6 col-xl-3 col-xl-offset-1">
+                    <h5>Tipo de pago</h5>
+                    <div class="radio">
+                        <input asp-for="PaymentType" type="radio" id="raCash" value="Efectivo" checked="" name="PaymentType">
+                        <label for="raCash">
+                            Efectivo
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <input asp-for="PaymentType" type="radio" id="raCard" value="Tarjeta" name="PaymentType">
+                        <label for="raCard">
+                            Tarjeta
+                        </label>
+                    </div>
+                </div><!--Type of payment-->
+
+                <div class="text-xs-left col-xs-6 col-xl-3 col-xl-offset-4">
+                    <h5>Tipo de orden</h5>
+                    <div class="radio">
+                        <input asp-for="TakeawayType" type="radio" id="raInside" value="Llevar" checked="" name="TakeawayType">
+                        <label for="raInside">
+                            Para llevar
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <input asp-for="TakeawayType" type="radio" id="raOutSide" value="ComerAqui" name="TakeawayType">
+                        <label for="raOutSide">
+                            Para comer aqui
+                        </label>
+                    </div>
+                </div><!--Takeaway-->
+            </div>
+            <div>
+                <br />
+                <h5 class="text-xs-left">Efectivo recibido</h5>
+                <input asp-for="Cash" id="txtPayment" style="width:100%; max-width:100%;" class="form-control input-lg" placeholder="Digite el monto con que cliente paga" aria-describedby="sizing-addon1" type="text" data-val="true" data-val-required="Este campo no puede quedar vacio" />
+            </div><!--Money recived-->
+        </div>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Ew006JEL9ZIn3yJBQK9pt7J6_XG0R7kBakFHoOZ_NvEM716HM4eDb0rEFZDQQ3GcUzMt_XlZXbAHkOqRznim7ECyyIHUMxIAevUOfhJ-zf8GtXyrOVucoyCh_wNLuJ6Zhwdivtu5w-q2gc4zoMePHU" />
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6 text-center">
+        <div style="padding:47px" class="card-box">
+            <div class="text-xs-center">
+                <blockquote>
+                    <h3>Cambio del cliente</h3>
+                </blockquote>
+                <blockquote>
+                    <h2 id="txtChange">₡0</h2>
+                </blockquote>
+            </div>
+            <div class="text-xs-left">
+                <h5 class="text-center">Observaciones</h5>
+                <textarea asp-for="Observations" id="txtDescription" style="width:100%; max-width:100%;" class="form-control" placeholder="Aqui puede colocar informacion adicional de la orden" rows="3"></textarea>
+            </div>
+        </div>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Ew006JEL9ZIn3yJBQK9pt7J6_XG0R7kBakFHoOZ_NvEM716HM4eDb0rEFZDQQ3GcUzMt_XlZXbAHkOqRznim7ECyyIHUMxIAevUOfhJ-zf8GtXyrOVucoyCh_wNLuJ6Zhwdivtu5w-q2gc4zoMePHU" />
+    </div><!--observations-->
+
+    <div class="col-xs-12 col-xl-12" style="padding-bottom:25px">
+        <button id="btnSell" disabled="disabled" type="submit" class="btn btn-block btn-lg btn-primary waves-effect waves-light">Realizar venta</button>
+    </div><!--Sell button-->
+</div>
+
+<div>
+    <button onclick="BotFunction()" id="btnTop" class="MovementButtons" title="Go to top"><i class="fa fa-arrow-down"></i></button>
+    <button onclick="TopFunction()" id="btnBot" class="MovementButtons" title="Go to bot"><i class="fa fa-arrow-up"></i></button>
+</div> <!--Shift Buttons-->

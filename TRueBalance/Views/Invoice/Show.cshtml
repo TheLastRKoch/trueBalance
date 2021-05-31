@@ -1,0 +1,140 @@
+﻿@model TRueBalance.Models.InvoiceViewModels.InvoiceViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Factura";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Factura</h1>
+        </div>
+
+        <!-- Simple Invoice - START -->
+        <div class="container">
+            <div class="row">
+
+                <div class="col-xs-12">
+                    <div class="text-center">
+                        <i class="fa fa-search-plus pull-left icon"></i>
+                        <h2>Factura numero #@Model.InvoiceID</h2>
+                        
+                    </div>
+                    <hr>
+                    <div class="row">
+
+                        <div class="col-md-3 pull-left">
+                            <div class="panel panel-default height">
+                                <div class="panel-heading">Informacion comercio</div>
+                                <div class="panel-body">
+                                    <strong>Farmacia fichel</strong><br>
+                                    215, San José Province, San José, Costa Rica<br>
+                                    VA<br><br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 pull-right">
+                            <div class="panel panel-default height">
+                                <div class="panel-heading">Informacion de la venta</div>
+                                <div class="panel-body">
+                                    <strong>Fecha</strong>
+                                    <br>
+                                    @Model.Date
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="text-center"><strong>Productos</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <td><strong>Nombre</strong></td>
+                                            <td class="text-center"><strong>Precio</strong></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var venta in Model.SellList)
+                                            {
+                                                <tr>
+                                                    <td>@venta.Meal.Name</td>
+                                                    <td class="text-center">₡@venta.Meal.Price</td>
+                                                </tr>
+                                            }
+                                        }
+
+                                        <tr>
+                                            <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+                                            <td class="emptyrow"></td>
+                                            <td class="emptyrow text-center"><strong>Total</strong></td>
+                                            <td class="emptyrow text-right">₡@Model.TotalAmount</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <style>
+            .height {
+                min-height: 200px;
+            }
+
+            .icon {
+                font-size: 47px;
+                color: #5CB85C;
+            }
+
+            .iconbig {
+                font-size: 77px;
+                color: #5CB85C;
+            }
+
+            .table > tbody > tr > .emptyrow {
+                border-top: none;
+            }
+
+            .table > thead > tr > .emptyrow {
+                border-bottom: none;
+            }
+
+            .table > tbody > tr > .highrow {
+                border-top: 3px solid;
+            }
+        </style>
+        <!-- Simple Invoice - END -->
+
+    </div>
+
+</body>
+</html>

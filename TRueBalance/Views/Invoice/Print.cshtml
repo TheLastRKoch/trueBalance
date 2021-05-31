@@ -1,0 +1,102 @@
+﻿@model TRueBalance.Models.InvoiceViewModels.InvoicePrintViewModel
+@{
+    ViewData["Title"] = "Print";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A restaurant system">
+    <meta name="author" content="pluricode">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- App title -->
+    <title>Uplon - Responsive Admin Dashboard Template</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="~/assets/Admin/css/Print.css">
+
+</head>
+
+<body>
+
+    <div id="divWrapper" class="wrapper">
+
+        <div class="container">
+            <div class="row">
+                <div id="InvoiceFrame" class="col-md-12 col-xs-12">
+
+                    <!--Header-->
+                    <p id="pOrganizationName"></p>
+                    <p id="pLegalPerson"></p>
+                    <p id="pIDLegalPerson"></p>
+                    <p id="pPhoneNumber"></p>
+                    <p id="pAddress"></p>
+
+                    <br>
+
+                    <!--Body-->
+                    <p id="pInvoiceID">Fact #:</p>
+                    <p id="pDate">Fecha:</p>
+                    <p id="pVendor">Vendedor:</p>
+                    <p id="pClientName">Cliente:</p>
+
+                    <br>
+
+                    <!--Product list-->
+                    <p id="pProductsName">Producto</p>
+                    <br>
+                    <div id="divProducts">
+
+                    </div>
+                    <br>
+
+                    <!--Payment info-->
+                    <p id="pPaymentType">Tipo pago:</p>
+                    <p id="pCash">Paga con:</p>
+                    <p id="pTotalToPay">Total a pagar:</p>
+                    <p id="pClientChange">Su cambio:</p>
+
+                    <br>
+
+                    <!--Legal infomation-->
+                    <p id="plegalInformation"></p>
+                    <p id="pCodeInfo"></p>
+                    <br>
+                    <p id="pSendoff">  </p>
+                    <br>
+                    <p id="pGap">‌‌</p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var resizefunc = [];
+    </script>
+
+    <script src="~/assets/Admin/js/jquery.min.js"></script>
+    <script src="~/assets/Admin/js/tether.min.js"></script>
+    <script src="~/assets/Admin/js/bootstrap.min.js"></script>
+    <script src="~/assets/Admin/js/waves.js"></script>
+    <script src="~/assets/Admin/js/jquery.nicescroll.js"></script>
+    <script src="~/assets/Admin/plugins/switchery/switchery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <script src="~/assets/Admin/js/Print/Utils.js" asp-file-version="true"></script>
+    <script src="~/assets/Admin/js/Print/WriteOnScreen.js" asp-file-version="true"></script>
+    <script src="~/assets/Admin/js/Print/Core.js" asp-file-version="true"></script>
+    <script>var CurrentInvoiceID = @Model.InvoiceID;</script>
+</body>
+
+</html>

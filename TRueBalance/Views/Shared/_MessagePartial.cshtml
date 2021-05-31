@@ -1,0 +1,30 @@
+﻿@{
+    if (ViewBag.Message != null)
+    {
+        string NameOfClass = "alert " + ViewBag.MessageType + " alert-dismissible";
+        string Title = string.Empty;
+
+        switch (ViewBag.MessageType)
+        {
+            case "alert-danger":
+                Title = "Error! ";
+                break;
+            case "alert-success":
+                Title = "Listo! ";
+                break;
+            case "alert-warning":
+                Title = "Aviso! ";
+                break;
+            default:
+                Title = "Info! ";
+                break;
+        }
+
+        <div class="@NameOfClass" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <strong>@Title</strong> @ViewBag.Message
+        </div>
+    }
+}

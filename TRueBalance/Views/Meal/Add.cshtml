@@ -1,0 +1,37 @@
+﻿@model TRueBalance.Models.MealViewModels.MealViewModel
+@{
+    ViewBag.Title = "Agregar platillo";
+}
+
+<div class="row">
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="card-box">
+            <div class="inbox-item-img">
+                <img src="~/assets/Admin/images/restaurant.jpg" style="width:59%" class="img-rounded center-block" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7 col-sm-7 col-xs-12">
+        <div class="card-box">
+            <form asp-action="Add" method="post">
+                <div class="form-group">
+                    <fieldset class="form-group">
+                        <input asp-for="MealID" style="display:none" />
+
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" value="@Model.Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label asp-for="Price"></label>
+                        <input asp-for="Price" class="form-control" value="@Model.Price" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </fieldset>
+
+                </div>
+                <button type="submit" class="btn btn-primary center-block">Listo</button>
+            </form>
+        </div>
+    </div>
+</div>

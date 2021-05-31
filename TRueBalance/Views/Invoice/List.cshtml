@@ -1,0 +1,61 @@
+@model TRueBalance.Models.InvoiceViewModels.InvoiceListViewModel
+
+<div class="col-sm-12">
+    <div class="btn-group pull-right m-t-15">
+        <a href="@Url.Action("MakeSale", "Sell")" role="button" class="btn btn-custom waves-effect waves-light" aria-expanded="false">Realizar venta<span class="m-l-5"><i class="zmdi zmdi-shopping-basket"></i></span></a>
+    </div>
+    <h2 class="page-title">Facturas</h2>
+</div>
+
+<div class="col-lg-12">
+    <div class="card-box">
+        @if (Model.Invoices.Count() > 0)
+        {
+            <table class="table">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Numero</th>
+                        <th>Nombre cliente</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Opcion 1</th>
+                        <th>Opcion 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var invoice in Model.Invoices)
+                    {
+                        string style = string.Empty;
+                        string display = string.Empty;
+                        if (invoice.State.Equals("Activada"))
+                        {
+
+                            display = "Anular";
+                        }
+                        else
+                        {
+                            display = "Activar";
+                            style = "background-color:#808080";
+
+                        }
+
+                        <tr style="@style">
+                            <td>@Html.ActionLink(invoice.InvoiceID.ToString(), "Update", "Invoice", new { id = invoice.InvoiceID }, null)</td>
+                            <td>@invoice.ClientName</td>
+                            <td>@invoice.Date.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@invoice.TotalToPay</td>
+                            <td>@invoice.State</td>
+                            <td><a class="btn btn-primary" href=@Url.Action("ChangeState", "Invoice", new { id = invoice.InvoiceID }, null) role="button">@display</a></td>
+                            <td><a class="btn btn-primary" href=@Url.Action("Print", "Invoice", new { id = invoice.InvoiceID }, null) role="button">Imprimir factura</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h6>No se encontraron elementos</h6>
+        }
+    </div>
+</div>

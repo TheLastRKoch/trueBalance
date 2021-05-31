@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A restaurant system">
+    <meta name="author" content="pluricode">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    @Html.Partial("_StylesPartial.cshtml")
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar-->
+    <header id="topnav">
+        <div class="topbar-main">
+            <div class="container">
+
+                <!-- LOGO -->
+                <div class="topbar-left">
+                    <a href=@Url.Action("Dashboard", "Overview") class="logo">
+                        <i class="zmdi zmdi-group-work icon-c-logo"></i>
+                        <span>TRueBalance</span>
+                    </a>
+                </div>
+                <!-- End Logo container-->
+
+                @Html.Partial("_LoginPartial.cshtml")
+
+                <div class="clearfix"></div>
+
+            </div> <!-- end container -->
+        </div>
+        <!-- end topbar-main -->
+
+        <div class="navbar-custom">
+            <div class="container">
+                <div id="navigation">
+                    <!-- Navigation Menu-->
+                    <ul class="navigation-menu">
+                        <li>
+                            <a href=@Url.Action("Dashboard", "Overview")><i class="zmdi zmdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                        </li>
+                        <li>
+                            <a id="MakeSaleAL" href="#"><i class="zmdi zmdi-shopping-basket"></i> <span> Realizar venta </span> </a>
+                        </li>
+                        <li class="has-submenu">
+                            <a><i class="zmdi zmdi-cutlery"></i> <span> Platillos </span> </a>
+                            <ul class="submenu">
+                                <li><a href="@Url.Action("List", "Meal")">Lista</a></li>
+                                <li><a href="@Url.Action("Add", "Meal")">Agregar</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="@Url.Action("List", "Order")"><i class="zmdi zmdi-pin-account"></i> <span> Ordenes </span> </a></li>
+                        <li>
+                            <a href="@Url.Action("List", "Invoice")"><i class="zmdi zmdi-money"></i> <span>Facturas</span> </a>
+                        </li>
+                        @{
+                            if (User.IsInRole("Developer") || User.IsInRole("Administrator"))
+                            {
+                                <li>
+                                    <a id="AStatics" ><i class="ion-stats-bars"></i><span>Estadisticas</span></a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <!-- End navigation menu  -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End Navigation Bar-->
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div id="divWrapper" class="wrapper">
+
+        <div class="container">
+
+            @Html.Partial("_MessagePartial.cshtml")
+
+            @if (ViewBag.Title != null)
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="page-title">@ViewBag.Title</h2>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div style="padding-bottom:20px" class="row">
+                </div><!--Spacer-->
+            }
+
+            @RenderBody()
+
+            @Html.Partial("_PartialModal.cshtml")
+
+            <!-- Footer -->
+            <footer class="footer text-right">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 copyright">© Copyright @DateTime.Now.Year : All Rights Reserved. Powered by <a href="#">Pluricode Inc.</a></div>
+                    </div>
+                </div>
+            </footer>
+            <!-- End Footer -->
+
+        </div>
+
+    </div> <!-- End wrapper -->
+
+    <script>
+        var resizefunc = [];
+    </script>
+
+    @Html.Partial("_ScriptsPartial.cshtml")
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

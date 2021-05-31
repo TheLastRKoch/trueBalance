@@ -1,0 +1,29 @@
+﻿@model TRueBalance.Models.ProductViewModels.ProductListViewModel
+
+<div class="jumbotron">
+    <h1 class="display-3">Productos</h1>
+
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="@Url.Action("Add", "Product")" role="button">Agregar producto</a>
+    </p>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Fecha de vencimiento</th>
+            <th></th>
+        </tr>
+        <tbody>
+            @foreach (var product in Model.ProductList)
+            {
+                <tr>
+                    <td>@Html.ActionLink(product.Name, "Update", "Product", new { id = product.ProductID }, null)</td>
+                    <td>@product.Price</td>
+                    <td>@product.DueDate</td>
+                    <td><a class="btn btn-default" href=@Url.Action("Delete", "Product", new { id = product.ProductID }, null) role="button">X</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

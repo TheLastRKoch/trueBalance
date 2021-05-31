@@ -1,0 +1,108 @@
+﻿@model TRueBalance.Models.OverviewViewModels.SummaryViewModel
+@{
+    ViewData["Title"] = null;
+    Layout = "_Layout";
+}
+@section Scripts{
+<script type="text/javascript" src="~/assets/Admin/js/Vendor/FileSaver.js" asp-file-version="true"></script>
+<script type="text/javascript" src="~/assets/Admin/js/Vendor/html2canvas.js" asp-file-version="true"></script>
+<script type="text/javascript" src="~/assets/Admin/js/Utils/TimeManagment.js" asp-file-version="true"></script>
+<script type="text/javascript" src="~/assets/Admin/js/Utils/ScreenShot.js" asp-file-version="true"></script>
+<script type="text/javascript" src="~/assets/Admin/js/Utils/FullScreen.js" asp-file-version="true"></script>
+}
+
+<div class="row">
+    <div class="col-xl-4 col-xs-12">
+        <h2 class="page-title">Estadisticas</h2>
+    </div>
+    <div class="col-xl-8 col-xs-12 pull-right">
+        <div class="row pull-right">
+            <div class="m-t-15 col-xl-2">
+                <a id="btnScreenShot"
+                   role="button"
+                   class="btn btn-custom waves-effect waves-light"
+                   aria-expanded="false">
+                    Guardar
+                    <span class="m-l-5"><i class="zmdi zmdi-layers"></i></span>
+                </a>
+            </div>
+            <div class="m-t-15 col-xl-2">
+                <a id="btnFullScreen" role="button" class="btn btn-custom waves-effect waves-light" aria-expanded="false"><i class="zmdi zmdi-fullscreen"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="card-box tilebox-one">
+            <i class="ti-money pull-xs-right text-muted"></i>
+            <h6 class="text-muted text-uppercase m-b-20">Ganancias en efectivo</h6>
+            <h2 class="m-b-20">&#8353; <span data-plugin="counterup">@Model.DayCashEarnigs</span></h2>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
+        <!--Space-->
+    </div>
+
+    <div class="col-xs-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="card-box tilebox-one">
+            <i class="ti-credit-card pull-xs-right text-muted"></i>
+            <h6 class="text-muted text-uppercase m-b-20">Ganancias con tarjeta</h6>
+            <h2 class="m-b-20">&#8353; <span data-plugin="counterup">@Model.DayCreditCardEarnigs</span></h2>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="card-box tilebox-one">
+            <i class="ti-credit-card pull-xs-right text-muted"></i>
+            <h6 class="text-muted text-uppercase m-b-20">Numero de clientes</h6>
+            <h2 class="m-b-20"><span data-plugin="counterup">@Model.NumberOfClients</span></h2>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
+        <div class="card card-inverse card-success text-xs-center">
+            <div class="card-block">
+                <blockquote class="card-blockquote">
+                    <h6 class=" text-uppercase m-b-20">Total de ganancia al dia de hoy: @String.Format("{0:dd/MM/yyyy}", DateTime.Now.Date)</h6>
+                    <h2 class="m-b-20">&#8353; <span data-plugin="counterup">@Model.DayEarnigs</span></h2>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="card-box tilebox-one">
+            <i class="ti-credit-card pull-xs-right text-muted"></i>
+            <h6 class="text-muted text-uppercase m-b-20">% Ganancia/Cliente</h6>
+            <h2 class="m-b-20">&#8353; <span data-plugin="counterup">@Model.AVGClientEarnigs</span></h2>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div style="padding-bottom: 20px" class="col-xs-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="card-box tilebox-one">
+            <i class="ti-arrow-circle-down pull-xs-right text-muted"></i>
+            <h6 class="text-muted text-uppercase m-b-20">Numero de la primera factura</h6>
+            <h2 class="m-b-20">@Model.FirstInvoiceID</h2>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
+        <!--Some space-->
+    </div>
+
+    <div class="col-xs-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="card-box tilebox-one">
+            <i class="ti-arrow-circle-up pull-xs-right text-muted"></i>
+            <h6 class="text-muted text-uppercase m-b-20">Numero de la ultima factura</h6>
+            <h2 class="m-b-20">@Model.LastInvoiceID</h2>
+        </div>
+    </div>
+</div>
+<!-- end row -->

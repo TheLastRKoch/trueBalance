@@ -1,0 +1,99 @@
+﻿@model TRueBalance.Models.OrderViewModels.OrderViewModel
+
+@section Scripts{
+    <script type="text/javascript" src="~/assets/Admin/js/Orders/OrderControl.js" asp-file-version="true"></script>
+    <script type="text/javascript" src="~/assets/Admin/js/Utils/FullScreen.js" asp-file-version="true"></script>
+}
+
+<div class="row">
+
+    <div class="col-xl-4 col-xs-12">
+        <h2 class="page-title">Cola de ordenes</h2>
+    </div>
+    <div class="col-xl-8 col-xs-12 pull-right">
+        <div class="row pull-right">
+            <div class="m-t-15 col-xl-4">
+                <a href="@Url.Action("List", "order")" role="button" class="btn btn-custom waves-effect waves-light"
+                   aria-expanded="false">
+                    Ver lista <span class="m-l-5"><i class="zmdi zmdi-collection-folder-image"></i></span>
+                </a>
+            </div>
+            <div class="m-t-15 col-xl-2">
+                <a id="btnFullScreen" role="button" class="btn btn-custom waves-effect waves-light" aria-expanded="false"><i class="zmdi zmdi-fullscreen"></i></a>
+            </div>
+        </div>
+    </div>
+</div><!--Buttons and header-->
+
+
+<div id="frmOrders" style="padding-bottom:25px" class="row">
+    <div style="display: none" id="base" class="col-xl-4 col-md-6 col-xs-12">
+        <div id="divBorder" class="card">
+            <div style="padding-bottom:0px" class="card-block">
+                <div class="card-box tilebox-one">
+                    <i class="icon-layers pull-xs-right text-muted"></i>
+                    <h6 id="spcHour" class="text-uppercase m-b-20">22:19</h6>
+                    <h2 id="spcClient" style="text-align:center" class="m-b-20">Sergio</h2>
+                    <div id="divProduct" style="text-align: center" class="inbox-widget nicescroll">
+                        <ul id="spcProducts" class="list-group list-group-flush"></ul>
+                    </div>
+                    <div class="m-t-10">
+                        <input id="spcDescription" type="text" value="ham1 sin salas, ham2 lechuga" class="form-control"
+                               placeholder="description">
+                    </div>
+                    <div style="padding-top: 20px">
+                        <button id="btnDelivery" onclick="DeliveryOrder(0)" type="button" class="btn btn-block btn-lg btn-success waves-effect waves-light">Entregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--Base to dynamic add Div-->
+
+    @foreach (var Order in Model.OrderList)
+    {
+        if (Order.State != "Ready")
+        {
+            Model.OrderType = " ";
+
+            if (Order.Takeaway.Name == "Llevar")
+            {
+                Model.OrderType = "card card-danger";
+            }
+            else
+            {
+                Model.OrderType = "card";
+
+            }
+
+            <div class="col-xl-4 col-md-6 col-xs-12">
+                <div class="@Model.OrderType">
+                    <div style="padding-bottom:0px " class="card-block">
+                        <div class="card-box tilebox-one">
+                            <i class="icon-layers pull-xs-right text-muted"></i>
+                            <h6 class="text-uppercase m-b-20">@Order.StartTime.ToString("HH:mm")</h6>
+                            <h2 style="text-align:center" class="m-b-20">@Order.ClientName</h2>
+                            <div style="text-align: center" class="inbox-widget nicescroll">
+                                <ul class="list-group list-group-flush">
+                                    @foreach (var Meal in Order.OrderMeals)
+                                    {
+                                        <li class="list-group-item">@Meal.Meal.Name</li>
+                                    }
+                                </ul>
+                            </div>
+                            @if (Order.Observation != null)
+                            {
+                                <div class="m-t-10">
+                                    <input id="spcDescription" type="text" value="@Order.Observation" class="form-control"
+                                           placeholder="description">
+                                </div>
+                            }
+                            <div style="padding-top: 20px">
+                                <button name="@Order.OrderID" onclick="DeliveryOrder(@Order.OrderID)" id="btnDelivery" type="button" class="btn btn-block btn-lg btn-success waves-effect waves-light">Entregar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

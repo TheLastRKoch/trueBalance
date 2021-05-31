@@ -1,0 +1,93 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Perfil";
+}
+
+@section Scripts {
+    <!--Datepicker scripts-->
+    <script src="~/assets/Admin/plugins/moment/moment.js"></script>
+    <script src="~/assets/Admin/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="~/assets/Admin/plugins/mjolnic-bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="~/assets/Admin/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/Admin/plugins/clockpicker/bootstrap-clockpicker.js"></script>
+    <script src="~/assets/Admin/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="~/assets/Admin/pages/jquery.form-pickers.init.js"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+@Html.Partial("_StatusMessage", Model.StatusMessage)
+
+<div class="row">
+    <div class="col-xs-12 col-md-8 col-lg-8">
+        <div class="card-box tilebox-one">
+            <form asp-action="index" method="post">
+                <i class="ion-at pull-xs-right text-muted"></i>
+                <h6 class="text-muted text-uppercase m-b-20">Informacion</h6>
+                <div class="form-group">
+                    <fieldset class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" disabled value="@Model.Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="form-control" value="@Model.FirstName" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="form-control" value="@Model.LastName" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </fieldset>
+                    <div class="form-group">
+                        <label asp-for="BirthDay"></label>
+                        <div>
+                            <div class="input-group">
+                                <input asp-for="BirthDay" type="text" value="@Model.BirthDay" class="form-control" placeholder="mm/dd/yyyy" id="datepicker">
+                                <span class="input-group-addon bg-custom b-0"><i class="icon-calender"></i></span>
+                            </div><!-- input-group -->
+                        </div>
+                    </div>
+                    <fieldset class="form-group">
+                        <label asp-for="ImgUrl"></label>
+                        <input id="txtImgURL" asp-for="ImgUrl" class="form-control" value="@Model.ImgUrl" />
+                        <span asp-validation-for="ImgUrl" class="text-danger"></span>
+                    </fieldset>
+                    <fieldset style="padding-top:25px" class="form-group">
+                        <button type="submit" class="btn btn-primary center-block">Listo</button>
+                    </fieldset>
+            </form>
+        </div>
+    </div>
+</div><!--Form-->
+
+<div class="col-xs-12 col-md-4 col-lg-4">
+    <div class="card-box tilebox-one">
+        <i class="zmdi zmdi-image pull-xs-right text-muted"></i>
+        <h6 class="text-muted text-uppercase m-b-20">URL</h6>
+        <h3 class="m-b-20">Foto de perfil</h3>
+        <img id="ProfileImg" src="@Model.ImgUrl"
+             class="img-thumbnail center-block img-circle" alt="image-responsive" height="270" width="270">
+    </div>
+    <div class="card-box tilebox-one">
+        <i class="icon-rocket pull-xs-right text-muted"></i>
+        <h6 class="text-muted text-uppercase m-b-20">Rol del usuario</h6>
+        @{
+            string RoleName = String.Empty;
+            if (User.IsInRole("Developer"))
+            {
+                RoleName = "Developer";
+            }
+            else
+            {
+                if (User.IsInRole("Administrator"))
+                {
+                    RoleName = "Administrador";
+                }
+
+                RoleName = "Estandar";
+            }
+        }
+        <h2 class="m-b-20">@RoleName</h2>
+    </div><!--Profile Image-->
+</div>

@@ -1,0 +1,71 @@
+﻿@model TRueBalance.Models.OrderViewModels.OrderViewModel
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="btn-group pull-right m-t-15">
+            <a href="@Url.Action("show", "order")" role="button" class="btn btn-custom waves-effect waves-light" aria-expanded="false">Ver Cola <span class="m-l-5"><i class="zmdi zmdi-eye"></i></span></a>
+        </div>
+        <h4 class="page-title">Lista de ordenes</h4>
+    </div>
+</div>
+
+@if (Model.OrderList.Count() > 3)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-box">
+                <table class="table">
+                    <thead class="thead-default">
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre cliente</th>
+                            <th>Hora de orden</th>
+                            <th>Hora de entrega</th>
+                            <th>Tipo de orden</th>
+                            <th>Opcion</th>
+                            <th>Observacion</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Order in Model.OrderList)
+                        {
+                            int i = 1;
+                            string style = string.Empty;
+                            string display = string.Empty;
+                            if (Order.State.Equals("Waiting"))
+                            {
+                                display = "Quitar";
+                            }
+                            else
+                            {
+                                display = "Agregar";
+                                style = "background-color:#808080";
+                            }
+
+                            <tr style="@style">
+                                <th scope="row">@i</th>
+                                <td>@Order.ClientName</td>
+                                <td>@Order.StartTime.ToString("HH:mm")</td>
+                                <td>@Order.EndTime.ToString("HH:mm")</td>
+                                <td>@Order.Takeaway.Name</td>
+                                <td><a class="btn btn-primary" href=@Url.Action("RemoveAddFromQueue", "Order", new { idOrder = Order.OrderID }, null) role="button">@display</a></td>
+                                <td>@Order.Observation</td>
+                                <td><a class="btn btn-primary" href=@Url.Action("Delete", "Order", new { idOrder = Order.OrderID }, null) role="button">X</a></td>
+                            </tr>
+                            i = i + 1;
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    @using TRueBalance.Views.Shared
+    @Html.Partial("../Shared/_PartialNoElements.cshtml",
+            new _NoElementsPartial { Message = "No se encontraron elementos" })
+}
+
